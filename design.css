@@ -1,73 +1,343 @@
+/* =================================================
+   RESET + BASE LAYOUT
+   ================================================= */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: pink;
   font-family: Arial, sans-serif;
+
+  /* background */
+  background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+
+  /* center everything */
   display: flex;
   justify-content: center;
   align-items: center;
+
   height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-.gif-style { 
-  width: 200px; 
-  height: auto; 
-  display: block; 
-  margin: 0 auto 20px;
-  margin-top: -60px;
-  border-radius: 10px;
-} 
+
+/* =================================================
+   MAIN CARD
+   ================================================= */
+.card {
+  position: relative;
+  z-index: 2;
+
+  background: white;
+  padding: 40px 40px 70px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+
+  animation: fadeIn 1s ease forwards;
+}
 
 .card h1 {
   margin-top: 30px;
   font-size: 1.5rem;
 }
 
-.card {
-  position: relative;
-  text-align: center;
-  background: white;
-  padding: 40px;
-  padding-top: 70px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  z-index: 2; 
-  max-width: 400px; /* prevent card from being too wide */
-  width: 90%;       /* scale with screen size */
+.gif-style {
+  width: 200px;
+  display: block;
+  margin: -10px auto 20px;
+  border-radius: 10px;
 }
 
+
+/* =================================================
+   BUTTONS
+   ================================================= */
 .BTN {
   margin: 10px;
   padding: 10px 20px;
   border: none;
+  border-radius: 8px;
+
   background: red;
   color: white;
   font-size: 1rem;
-  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
+
+  transition: transform 0.2s, background 0.2s;
 }
+
 .BTN:hover {
   transform: scale(1.1);
   background: darkred;
 }
 
-/* Floating hearts */
-.hearts {
+
+/* =================================================
+   FLOATING EMOJI HEARTS (BACKGROUND)
+   ================================================= */
+.float-heart {
   position: absolute;
   bottom: 0;
-  width: 40px;   /* controls image size */
-  height: auto;  /* keeps aspect ratio */
-  animation: floatUp  ease-in-out forwards;
-  
+  width: 40px;
   z-index: 1;
   pointer-events: none;
+
+  animation: floatUp ease-in-out forwards;
 }
 
 
-/* Animation keyframes */
+/* =================================================
+   SECOND SCREEN CONTAINER
+   ================================================= */
+.secondSet {
+  position: relative;
+  z-index: 4;
+
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  margin: 0 auto;
+
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.secondSet:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
+}
+
+.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.valentine {
+  text-align: center;
+  font-size: 30px;
+  color: #141414;
+}
+
+
+/* =================================================
+   ENVELOPE
+   ================================================= */
+#envelope {
+  position: relative;
+  height: 180px;
+  width: 280px;
+
+  margin: 40px auto 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  background-color: #ff2a22;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+#envelope:hover {
+  cursor: pointer;
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 5;
+}
+
+.flap {
+  border-top: 98px solid #ff2a22;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  transform-origin: top;
+}
+
+.pocket {
+  border-left: 140px solid #ff748d;
+  border-right: 140px solid #ff748d;
+  border-bottom: 90px solid #ff98a7;
+  border-top: 90px solid transparent;
+  border-radius: 0 0 6px 6px;
+}
+
+
+/* =================================================
+   LETTER
+   ================================================= */
+.letter {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  font-family: 'Dancing Script', cursive;
+  margin: auto;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 26px rgba(38, 37, 37, 0.12);
+  
+}
+
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  font-size: 15px;
+  color: black;
+}
+
+.line1 { left: -50px; top: -2%; }
+.line2 { top: 15%; }
+.line3 { top: 78%; }
+
+
+
+/* =================================================
+   ENVELOPE HEART ANIMATION
+   ================================================= */
+.hearts {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  background: #d00000;
+
+  width: 50px;
+  height: 80px;
+  border-radius: 50px 50px 0 0;
+}
+
+.heart:before {
+  left: 50px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.close .heart {
+  opacity: 0;
+  animation: none;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+}
+
+.a2 {
+  left: 55%;
+  transform: scale(1);
+  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+}
+
+
+/* =================================================
+   ENVELOPE OPEN / CLOSE STATES
+   ================================================= */
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 0.4s ease;
+  z-index: 3;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform 0.4s ease 0.6s;
+  z-index: 4;
+}
+
+.open .letter {
+  transform: translateY(-120px);
+  transition: transform 0.4s ease 0.6s;
+  z-index: 4;
+}
+
+.close .letter {
+  transform: translateY(0);
+  z-index: 3;
+}
+
+
+/* =================================================
+   RESET BUTTONS
+   ================================================= */
+.bgmusic {
+  display: none;
+}
+.reset {
+  text-align: center;
+}
+
+.reset button {
+  margin: 20px;
+  margin-top: 110px;
+  padding: 10px;
+  min-width: 150px;
+
+  border: 2px solid #FF6863;
+  border-radius: 4px;
+
+  background: transparent;
+  color: #FF6863;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  transition: all 0.1s linear;
+}
+
+.reset button:hover {
+  background: #FF6863;
+  color: white;
+}
+
+
+/* =================================================
+   ANIMATIONS
+   ================================================= */
 @keyframes floatUp {
   from {
     transform: translateY(0) rotate(0deg);
@@ -79,7 +349,16 @@ body {
   }
 }
 
-/* Fade-in animation for card */
+@keyframes slideUp {
+  0% { top: 0; }
+  100% { top: -600px; }
+}
+
+@keyframes sideSway {
+  0% { margin-left: 0; }
+  100% { margin-left: 50px; }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -91,49 +370,19 @@ body {
   }
 }
 
-.card {
-  animation: fadeIn 1s ease forwards;
-}
 
-/* 📱 Mobile adjustments */
+/* =================================================
+   RESPONSIVE
+   ================================================= */
 @media (max-width: 600px) {
-  .gif-style {
-    width: 150px; /* smaller image */
-    margin-top: -30px;
-  }
-
-  .card {
-    padding: 20px;
-    padding-top: 50px;
-  }
-
-  .card h1 {
-    font-size: 1.2rem;
-    margin-top: 10px;
-  }
-
-  .BTN {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-
-  .hearts {
-    font-size: 1.5rem; /* smaller hearts */
-  }
+  .gif-style { width: 150px; margin-top: 20px; }
+  .card { padding: 20px 20px 50px; }
+  .card h1 { font-size: 1.2rem; }
+  .BTN { padding: 8px 16px; font-size: 0.9rem; }
 }
 
-/* 📱 Extra small screens */
-@media (max-width: 400px) {
-  .gif-style {
-    width: 120px;
-  }
-
-  .card h1 {
-    font-size: 1rem;
-  }
-
-  .BTN {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-  }
+@media (max-width: 300px) {
+  .gif-style { width: 120px; }
+  .card h1 { font-size: 1rem; }
+  .BTN { font-size: 0.8rem; padding: 6px 12px; }
 }
